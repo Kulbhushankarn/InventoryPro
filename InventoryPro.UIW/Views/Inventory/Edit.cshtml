@@ -1,0 +1,39 @@
+﻿@model InventoryPro.VO.clsInventoryItem
+
+@{
+    ViewBag.Title = "Edit Item";
+}
+
+<h2>Edit Item</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+@using (Html.BeginForm("Edit", "Inventory", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ItemId)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Quantity)
+        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Quantity)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ReorderLevel)
+        @Html.TextBoxFor(m => m.ReorderLevel, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ReorderLevel)
+    </div>
+
+    <button type="submit" class="btn btn-warning">Update</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

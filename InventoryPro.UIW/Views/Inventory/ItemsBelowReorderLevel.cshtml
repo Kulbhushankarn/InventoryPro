@@ -1,0 +1,38 @@
+﻿@model List<InventoryPro.VO.clsInventoryItem>
+
+@{
+    ViewBag.Title = "Items Below Reorder Level";
+}
+
+<h2>Items Below Reorder Level</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Item ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Reorder Level</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ItemId</td>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.ReorderLevel</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+</p>

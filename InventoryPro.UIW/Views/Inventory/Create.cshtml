@@ -1,0 +1,56 @@
+﻿@model InventoryPro.VO.clsInventoryItem
+
+@{
+    ViewBag.Title = "Add New Item";
+}
+
+<h2>Add New Item</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+<div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+@using (Html.BeginForm("Create", "Inventory", FormMethod.Post))
+{
+@Html.AntiForgeryToken()
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Name)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Quantity)
+    @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Quantity)
+</div>
+
+<div class="from-group">
+    @Html.LabelFor(m => m.Category)
+    @Html.TextBoxFor(m => m.Category, new { @class = "form-control"})
+    @Html.ValidationMessageFor(m => m.Quantity)
+</div>
+
+<div class="from-group">
+    @Html.LabelFor(m => m.Unit)
+    @Html.TextBoxFor(m => m.Unit, new { @class = "form-control"})
+    @Html.ValidationMessageFor(m => m.Quantity)
+</div>
+
+<div class="from-group">
+    @Html.LabelFor(m => m.Price)
+    @Html.TextBoxFor(m => m.Price, new { @class = "form-control"})
+    @Html.ValidationMessageFor(m => m.Quantity)
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.ReorderLevel)
+    @Html.TextBoxFor(m => m.ReorderLevel, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.ReorderLevel)
+</div>
+
+<button type="submit" class="btn btn-success">Save</button>
+@Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}
