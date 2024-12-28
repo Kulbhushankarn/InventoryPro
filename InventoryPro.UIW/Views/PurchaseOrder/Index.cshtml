@@ -1,0 +1,40 @@
+﻿@model IEnumerable<InventoryPro.VO.clsPurchaseOrder>
+
+<h2>Purchase Orders</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Supplier Name</th>
+            <th>Total Amount</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.OrderDate.ToString("d")</td>
+                <td>@order.SupplierName</td>
+                <td>@order.TotalCost</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = order.OrderId }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = order.OrderId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = order.OrderId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Create New Order", "Create", null, new { @class = "btn btn-primary" })
+</p>

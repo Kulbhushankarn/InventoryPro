@@ -8,5 +8,6 @@ namespace InventoryPro.BM.ITF
 {
     public class Class1
     {
+
     }
 }

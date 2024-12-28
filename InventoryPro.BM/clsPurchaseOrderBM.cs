@@ -1,14 +1,13 @@
-﻿using InventoryPro.DL.ITF;
-using InventoryPro.VO;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using InventoryPro.BM.ITF;
+using InventoryPro.DL.ITF;
+using InventoryPro.VO;
 
 namespace InventoryPro.BM
 {
-    public class clsPurchaseOrderBM
+    public class clsPurchaseOrderBM : IclsPurchaseOrderBM
     {
         private readonly IclsPurchaseOrderDL _purchaseOrderDL;
 
@@ -17,14 +16,44 @@ namespace InventoryPro.BM
             _purchaseOrderDL = purchaseOrderDL;
         }
 
-        public List<clsPurchaseOrder> GetAllPurchaseOrders()
+        public List<clsPurchaseOrder> GetAllPurchaseOrders(SqlConnection connection)
         {
-            return _purchaseOrderDL.GetAllPurchaseOrders();
+            return _purchaseOrderDL.GetAllPurchaseOrders(connection);
         }
 
-        public void CreatePurchaseOrder(clsPurchaseOrder order)
+        public clsPurchaseOrder GetPurchaseOrderById(SqlConnection connection, int id)
         {
-            _purchaseOrderDL.CreatePurchaseOrder(order);
+            return _purchaseOrderDL.GetPurchaseOrderById(connection, id);
+        }
+
+        public void CreatePurchaseOrder(SqlConnection connection, clsPurchaseOrder order)
+        {
+            if (order.TotalCost <= 0)
+            {
+                throw new ArgumentException("Total amount must be greater than zero.");
+            }
+
+            _purchaseOrderDL.CreatePurchaseOrder(connection, order);
+        }
+
+        public void UpdatePurchaseOrder(SqlConnection connection, clsPurchaseOrder order)
+        {
+            if (order.TotalCost <= 0)
+            {
+                throw new ArgumentException("Total amount must be greater than zero.");
+            }
+
+            _purchaseOrderDL.UpdatePurchaseOrder(connection, order);
+        }
+
+        public void DeletePurchaseOrder(SqlConnection connection, int id)
+        {
+            _purchaseOrderDL.DeletePurchaseOrder(connection, id);
+        }
+
+        public List<clsPurchaseOrder> GetOrdersAboveThreshold(SqlConnection connection, decimal threshold)
+        {
+            return _purchaseOrderDL.GetOrdersAboveThreshold(connection, threshold);
         }
     }
 }

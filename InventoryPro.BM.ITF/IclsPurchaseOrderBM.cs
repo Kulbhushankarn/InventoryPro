@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace InventoryPro.DL.ITF
+namespace InventoryPro.BM.ITF
 {
-    public interface IclsPurchaseOrderDL
+    public interface IclsPurchaseOrderBM
     {
         void CreatePurchaseOrder(SqlConnection connection, clsPurchaseOrder order);
         void DeletePurchaseOrder(SqlConnection connection, int id);
