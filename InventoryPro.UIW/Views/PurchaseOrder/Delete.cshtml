@@ -1,0 +1,35 @@
+﻿@model InventoryPro.VO.clsPurchaseOrder
+
+<h2>Delete Order</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+<p>Are you sure you want to delete this order?</p>
+
+<dl class="row">
+    <dt class="col-sm-3">Order ID</dt>
+    <dd class="col-sm-9">@Model.OrderId</dd>
+
+    <dt class="col-sm-3">Order Date</dt>
+    <dd class="col-sm-9">@Model.OrderDate.ToString("d")</dd>
+
+    <dt class="col-sm-3">Supplier Name</dt>
+    <dd class="col-sm-9">@Model.SupplierName</dd>
+
+    <dt class="col-sm-3">Total Amount</dt>
+    <dd class="col-sm-9">@Model.TotalCost</dd>
+</dl>
+
+@using (Html.BeginForm("DeleteConfirmed", "PurchaseOrder", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.OrderId)
+    <button type="submit" class="btn btn-danger">Delete</button>
+}
+
+<p>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</p>
