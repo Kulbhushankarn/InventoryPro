@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\11785899_4826433.svg" />
     <Content Include="Content\Inventory\InventoryIndex.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
@@ -96,8 +97,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\PurchaseOrderController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -119,6 +122,10 @@
     <Content Include="Views\PurchaseOrder\Details.cshtml" />
     <Content Include="Views\PurchaseOrder\Edit.cshtml" />
     <Content Include="Views\PurchaseOrder\Delete.cshtml" />
+    <Content Include="Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Logout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -45,6 +45,7 @@
     <Compile Include="IclsNotificationDL.cs" />
     <Compile Include="IclsPurchaseOrderDL.cs" />
     <Compile Include="IclsSalesRecordDL.cs" />
+    <Compile Include="IclsUserDL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

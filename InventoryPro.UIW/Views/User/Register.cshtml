@@ -1,0 +1,78 @@
+﻿@model InventoryPro.VO.clsUser
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Register";
+}
+
+<div class="d-flex justify-content-center text-decoration-underline">
+    <h2>Register</h2>
+</div>
+
+<div class="Main">
+    <div class="Image">
+        <img src="~/Content/Images/11785899_4826433.svg" alt="Login Image" class="img-fluid" />
+    </div>
+    <div class="Second">
+        @using (Html.BeginForm("Register", "User", FormMethod.Post))
+         {
+            @Html.AntiForgeryToken()
+
+            <div class="d-grid gap-1">
+                @Html.LabelFor(model => model.Username)
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Username)
+            </div>
+
+            <div class="d-grid gap-1">
+                @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+            <div class="d-grid gap-1">
+                @Html.LabelFor(model => model.PasswordHash)
+                @Html.PasswordFor(model => model.PasswordHash, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PasswordHash)
+            </div>
+
+            <div class="d-grid gap-2">
+                @Html.LabelFor(model => model.Role)
+                @Html.TextBoxFor(model => model.Role, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Role)
+
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+         }
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-image: linear-gradient(#d16ba5, #86a8e7, #5ffbf1);
+    }
+
+    .Main {
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+    }
+
+    .Image {
+        margin-top: -4rem;
+        height: 100%;
+        width: 100%;
+    }
+
+    .Second {
+        padding: 50px;
+        width: 50%;
+        height: 50%;
+        background-color: aliceblue;
+        border-radius: 25px;
+    }
+</style>
+
+
+

@@ -45,6 +45,7 @@
     <Compile Include="clsNotificationDL.cs" />
     <Compile Include="clsPurchaseOrderDL.cs" />
     <Compile Include="clsSalesRecordDL.cs" />
+    <Compile Include="clsUserDL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

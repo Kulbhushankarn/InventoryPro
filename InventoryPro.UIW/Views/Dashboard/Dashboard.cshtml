@@ -1,0 +1,108 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="container-fluid mt-4">
+    <h1 class="text-center text-primary mb-4">Dashboard</h1>
+
+    <!-- Quick Stats -->
+    <div class="row mb-4">
+        <!-- Inventory Card -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Inventory Items</h5>
+                    <h2 class="text-primary">1,234</h2>
+                    <a href="@Url.Action("Index", "Inventory")" class="btn btn-primary">View Inventory</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase Orders Card -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Purchase Orders</h5>
+                    <h2 class="text-danger">56</h2>
+                    <a href="@Url.Action("Index", "PurchaseOrders")" class="btn btn-danger">View Orders</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completed Orders Card -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Completed Orders</h5>
+                    <h2 class="text-success">345</h2>
+                    <a href="@Url.Action("CompletedOrders", "PurchaseOrders")" class="btn btn-success">View Completed</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Inventory Trends</h5>
+                    <canvas id="inventoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Order Status Breakdown</h5>
+                    <canvas id="orderStatusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="text-center mt-4">
+        <button class="btn btn-primary me-2">+ Add Inventory Item</button>
+        <button class="btn btn-success">+ Create Purchase Order</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Inventory Trends Chart
+    const ctx1 = document.getElementById('inventoryChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+            datasets: [{
+                label: 'Inventory Levels',
+                data: [1200, 1150, 1300, 1250, 1400],
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+
+    // Order Status Breakdown Chart
+    const ctx2 = document.getElementById('orderStatusChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Completed', 'Pending', 'Cancelled'],
+            datasets: [{
+                data: [345, 56, 20],
+                backgroundColor: ['#28a745', '#dc3545', '#ffc107']
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+</script>
