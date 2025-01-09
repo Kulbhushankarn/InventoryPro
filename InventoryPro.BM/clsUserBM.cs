@@ -16,27 +16,11 @@ namespace InventoryPro.BM
             _userDL = userDL ?? throw new ArgumentNullException(nameof(userDL));
         }
 
-        public clsUser AuthenticateUser(SqlConnection connection, string username, string passwordHash)
+        public clsUser AuthenticateUser(SqlConnection connection, string username, string passwordHash, string role)
         {
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                throw new ArgumentException("Username cannot be empty.", nameof(username));
-            }
-
-            if (string.IsNullOrWhiteSpace(passwordHash))
-            {
-                throw new ArgumentException("Password hash cannot be empty.", nameof(passwordHash));
-            }
-
-            try
-            {
-                return _userDL.GetUserByUsernameAndPassword(connection, username, passwordHash);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while authenticating the user.", ex);
-            }
+            return _userDL.AuthenticateUser(connection, username, passwordHash, role);
         }
+
 
         public void RegisterUser(SqlConnection connection, clsUser newUser)
         {

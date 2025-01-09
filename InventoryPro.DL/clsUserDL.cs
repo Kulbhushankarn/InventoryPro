@@ -33,6 +33,33 @@ namespace InventoryPro.DL
             return users;
         }
 
+        public clsUser AuthenticateUser(SqlConnection connection, string username, string passwordHash, string role)
+        {
+            var query = "SELECT * FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash AND Role = @Role";
+            using (var command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Username", username);
+                command.Parameters.AddWithValue("@PasswordHash", passwordHash);
+                command.Parameters.AddWithValue("@Role", role);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new clsUser
+                        {
+                            UserId = Convert.ToInt32(reader["UserId"]),
+                            Username = reader["Username"].ToString(),
+                            Role = reader["Role"].ToString()
+                        };
+                    }
+                }
+            }
+            return null; // User not found
+        }
+
+
+
         public clsUser GetUserByUsernameAndPassword(SqlConnection connection, string username, string passwordHash)
         {
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(passwordHash))

@@ -34,49 +34,52 @@ namespace InventoryPro.UIW.Controllers
         // POST: User/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(string username, string password, string role)
         {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(role))
+            {
+                ModelState.AddModelError("", "Username, password, and role are required.");
+                return View();
+            }
+
             try
             {
-                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
-                {
-                    ModelState.AddModelError("", "Username and password are required.");
-                    return View();
-                }
-
-                // Hash the password (replace this with actual password hashing logic)
+                // Hash the password
                 string passwordHash = GeneratePasswordHash(password);
 
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
-                    // Authenticate user using the username and hashed password
-                    var user = _userBM.AuthenticateUser(connection, username, passwordHash);
+                    // Authenticate the user
+                    var user = _userBM.AuthenticateUser(connection, username, passwordHash, role);
 
                     if (user != null)
                     {
-                        // Store user information in session
+                        // Set session variables
                         Session["UserId"] = user.UserId;
                         Session["Username"] = user.Username;
                         Session["Role"] = user.Role;
 
-                        // Redirect to the dashboard or home page
-                        return RedirectToAction("Index", "Dashboard");
+                        // Redirect to dashboard
+                        return RedirectToAction("Dashboard", "Dashboard");
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Invalid username or password.");
+                        ModelState.AddModelError("", "Invalid username, password, or role.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "An error occurred while processing your request. Please try again.");
+                ModelState.AddModelError("", "An error occurred while processing your request.");
             }
 
             return View();
         }
+
+
+
 
 
         // GET: User/Register

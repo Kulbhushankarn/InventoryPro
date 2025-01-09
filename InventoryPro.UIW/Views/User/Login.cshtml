@@ -19,29 +19,30 @@
         {
             @Html.AntiForgeryToken()
 
+            <h5 class="text-center mb-4">Login to Your Account</h5>
+
             <div class="d-grid gap-1">
-                @Html.LabelFor(model => model.Username)
-                @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Username)
+                @Html.LabelFor(model => model.Username, "UserName")
+                @Html.TextBox("username", null, new { @class = "form-control" })
             </div>
 
             <div class="d-grid gap-1">
-                @Html.LabelFor(model => model.PasswordHash)
-                @Html.PasswordFor(model => model.PasswordHash, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PasswordHash)
+                @Html.LabelFor(model => model.PasswordHash, "Password")
+                @Html.Password("password", new { @class = "form-control"})
             </div>
 
-            <div class="d-grid gap-2">
-                @Html.LabelFor(model => model.Role)
-                @Html.TextBoxFor(model => model.Role, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Role)
+            <div class="d-grid gap-3">
+                @Html.LabelFor(model => model.Role, "Role")
+                @Html.TextBox("role", null, new { @class = "form-control" })
 
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
 
-            <p>
-                Don't have an account? <a href="@Url.Action("Register", "User")">Register here</a>
-            </p>
+
+
+        <p>
+            Don't have an account? <a href="@Url.Action("Register", "User")">Register here</a>
+        </p>
         }
     </div>
 </div>
