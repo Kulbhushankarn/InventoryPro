@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using InventoryPro.BM;
 using InventoryPro.BM.ITF;
@@ -44,17 +46,14 @@ namespace InventoryPro.UIW.Controllers
 
             try
             {
-                // Hash the password
-                string passwordHash = GeneratePasswordHash(password);
-
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 
-                    // Authenticate the user
-                    var user = _userBM.AuthenticateUser(connection, username, passwordHash, role);
+                    // Retrieve user details from the database
+                    var user = _userBM.AuthenticateUser(connection, username, role);
 
-                    if (user != null)
+                    if (user != null && VerifyPassword(password, user.PasswordHash))
                     {
                         // Set session variables
                         Session["UserId"] = user.UserId;
@@ -77,10 +76,6 @@ namespace InventoryPro.UIW.Controllers
 
             return View();
         }
-
-
-
-
 
         // GET: User/Register
         public ActionResult Register()
@@ -105,10 +100,11 @@ namespace InventoryPro.UIW.Controllers
 
                         user.Email = user.Email;
 
-                        // Hash the password
+                        // Hash the plain-text password
                         user.PasswordHash = GeneratePasswordHash(user.PasswordHash);
 
                         // Set additional fields
+
                         user.Role = user.Role;
 
                         user.IsActive = true;
@@ -140,8 +136,19 @@ namespace InventoryPro.UIW.Controllers
         // Helper method to hash the password
         private string GeneratePasswordHash(string password)
         {
-            // Implement your password hashing logic here
-            return password; // Replace with actual hashing logic
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(password);
+                byte[] hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
+        }
+
+        // Helper method to verify the password
+        public bool VerifyPassword(string plainTextPassword, string hashedPassword)
+        {
+            string hashedPlainTextPassword = GeneratePasswordHash(plainTextPassword);
+            return hashedPlainTextPassword == hashedPassword;
         }
     }
 }

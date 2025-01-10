@@ -16,9 +16,9 @@ namespace InventoryPro.BM
             _userDL = userDL ?? throw new ArgumentNullException(nameof(userDL));
         }
 
-        public clsUser AuthenticateUser(SqlConnection connection, string username, string passwordHash, string role)
+        public clsUser AuthenticateUser(SqlConnection connection, string username, string role)
         {
-            return _userDL.AuthenticateUser(connection, username, passwordHash, role);
+            return _userDL.AuthenticateUser(connection, username, role);
         }
 
 

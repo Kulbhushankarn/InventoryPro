@@ -12,6 +12,6 @@ namespace InventoryPro.DL.ITF
         clsUser GetUserById(SqlConnection connection, int userId);
         clsUser GetUserByUsernameAndPassword(SqlConnection connection, string username, string passwordHash);
         void UpdateUser(SqlConnection connection, clsUser user);
-        clsUser AuthenticateUser(SqlConnection connection, string username, string passwordHash, string role);
+        clsUser AuthenticateUser(SqlConnection connection, string username, string role);
     }
 }

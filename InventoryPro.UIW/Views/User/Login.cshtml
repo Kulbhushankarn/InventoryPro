@@ -5,72 +5,87 @@
     ViewBag.Title = "Login";
 }
 
-<div class="d-flex justify-content-center text-decoration-underline">
-    <h2>Login</h2>
-</div>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="row shadow-lg p-4 bg-light rounded-3 w-100">
+        <div class="col-12 col-md-6 mb-4 mb-md-0">
+            <img src="~/Content/Images/11785899_4826433.svg" alt="Login Image" class="img-fluid" />
+        </div>
+        <div class="col-12 col-md-6">
+            <h2 class="text-center text-primary mb-4">Login</h2>
 
-<div class="Main">
+            @using (Html.BeginForm("Login", "User", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
 
-    <div class="Image">
-        <img src="~/Content/Images/11785899_4826433.svg" alt="Login Image" class="img-fluid" />
-    </div>
-    <div class="Second">
-        @using (Html.BeginForm("Login", "User", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
+                <!-- Display Model Errors -->
+                @Html.ValidationSummary(true, "", new { @class = "text-danger text-center" })
 
-            <h5 class="text-center mb-4">Login to Your Account</h5>
+                <div class="mb-2">
+                    @Html.LabelFor(model => model.Username, "Username", new { @class = "form-label" })
+                    @Html.TextBox("username", null, new { @class = "form-control", placeholder = "Enter your username" })
+                </div>
 
-            <div class="d-grid gap-1">
-                @Html.LabelFor(model => model.Username, "UserName")
-                @Html.TextBox("username", null, new { @class = "form-control" })
-            </div>
-
-            <div class="d-grid gap-1">
-                @Html.LabelFor(model => model.PasswordHash, "Password")
-                @Html.Password("password", new { @class = "form-control"})
-            </div>
-
-            <div class="d-grid gap-3">
-                @Html.LabelFor(model => model.Role, "Role")
-                @Html.TextBox("role", null, new { @class = "form-control" })
-
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>
+                <div class="mb-2">
+                    @Html.LabelFor(model => model.PasswordHash, "Password", new { @class = "form-label" })
+                    <input type="password" name="password" class="form-control" placeholder="Enter your password" />
+                </div>
 
 
+                <div class="mb-2">
+                    @Html.LabelFor(model => model.Role, "Role", new { @class = "form-label" })
+                    @Html.TextBox("role", null, new { @class = "form-control", placeholder = "Enter your role" })
+                </div>
 
-        <p>
-            Don't have an account? <a href="@Url.Action("Register", "User")">Register here</a>
-        </p>
-        }
+                <button type="submit" class="btn btn-primary w-100 mb-2">Login</button>
+
+                <p class="text-center">
+                    Don't have an account? <a href="@Url.Action("Register", "User")" class="text-decoration-none text-primary">Register here</a>
+                </p>
+            }
+        </div>
     </div>
 </div>
 
 <style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        background-image: linear-gradient(#d16ba5, #86a8e7, #5ffbf1);
-    }
+    /* Styles for the form layout */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: linear-gradient(to bottom right, #d16ba5, #86a8e7, #5ffbf1);
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
 
-    .Main {
-        display: flex;
-        flex-direction: row;
-        padding: 10px;
-        
-    }
+.container {
+    max-width: 900px;
+}
 
-    .Image {
-        margin-top: -4rem;
-        height: 100%;
-        width: 100%;
-    }
+.row {
+    background-color: white;
+    border-radius: 15px;
+}
 
-    .Second {
-        padding: 50px;
-        width: 50%;
-        height: 50%;
-        background-color: aliceblue;
-        border-radius: 25px;
-    }
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Adjust layout for smaller screens */
+
+
+
 </style>

@@ -4,7 +4,17 @@
 }
 
 <div class="container-fluid mt-4">
-    <h1 class="text-center text-primary mb-4">Dashboard</h1>
+    <!-- Dashboard Header with Username -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-primary">Dashboard</h1>
+        <div>
+            @if (Session["Username"] != null)
+            {
+                <span class="text-secondary me-3">Welcome, <strong>@Session["Username"]</strong>!</span>
+                <a href="@Url.Action("Logout", "User")" class="btn btn-danger btn-sm">Logout</a>
+            }
+        </div>
+    </div>
 
     <!-- Quick Stats -->
     <div class="row mb-4">

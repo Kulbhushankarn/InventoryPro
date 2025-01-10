@@ -41,8 +41,20 @@
                             <input type="text" class="form-control form-control-sm mt-1" placeholder="Search Name" onkeyup="columnSearch(1, event)">
                         </th>
                         <th>
+                            Category
+                            <input type="text" class="form-control form-control-sm mt-1" placeholder="Search Category" onkeyup="columnSearch(1, event)">
+                        </th>
+                        <th>
                             Quantity
                             <input type="text" class="form-control form-control-sm mt-1" placeholder="Search Quantity" onkeyup="columnSearch(2, event)">
+                        </th>
+                        <th>
+                            Unit
+                            <input type="text" class="form-control form-control-sm mt-1" placeholder="Search Unit" onkeyup="columnSearch(2, event)">
+                        </th>
+                        <th>
+                            Price
+                            <input type="text" class="form-control form-control-sm mt-1" placeholder="Search Price" onkeyup="columnSearch(2, event)">
                         </th>
                         <th>
                             Reorder Level
@@ -54,23 +66,39 @@
                 <tbody>
                     @if (Model != null && Model.Any())
                     {
-                        foreach (var item in Model)
+                        foreach (var item in Model.Take(10)) // Show 10 items per page for demonstration
                         {
                             <tr>
                                 <td>@item.ItemId</td>
                                 <td>@item.Name</td>
+                                <td>@item.Category</td>
                                 <td>@item.Quantity</td>
+                                <td>@item.Unit</td>
+                                <td>@item.Price</td>
                                 <td>@item.ReorderLevel</td>
                                 <td>
-                                    <a href="@Url.Action("Details", "Inventory", new { id = item.ItemId })" class="btn btn-sm btn-info">
-                                        <i class="bi bi-eye"></i> Details
-                                    </a>
-                                    <a href="@Url.Action("Edit", "Inventory", new { id = item.ItemId })" class="btn btn-sm btn-warning">
-                                        <i class="bi bi-pencil-square"></i> Edit
-                                    </a>
-                                    <a href="@Url.Action("Delete", "Inventory", new { id = item.ItemId })" class="btn btn-sm btn-danger">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </a>
+                                    <div class="dropdown">
+                                        <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton-@item.ItemId" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-@item.ItemId">
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("Details", "Inventory", new { id = item.ItemId })">
+                                                    <i class="bi bi-eye"></i> Details
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("Edit", "Inventory", new { id = item.ItemId })">
+                                                    <i class="bi bi-pencil-square"></i> Edit
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item text-danger" href="@Url.Action("Delete", "Inventory", new { id = item.ItemId })">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
                         }
@@ -83,7 +111,27 @@
                     }
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
-

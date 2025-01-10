@@ -6,7 +6,7 @@ namespace InventoryPro.BM.ITF
 {
     public interface IclsUserBM
     {
-        clsUser AuthenticateUser(SqlConnection connection, string username, string passwordHash, string role);
+        clsUser AuthenticateUser(SqlConnection connection, string username, string role);
         void DeactivateUser(SqlConnection connection, int userId);
         List<clsUser> GetAllUsers(SqlConnection connection);
         void RegisterUser(SqlConnection connection, clsUser newUser);
