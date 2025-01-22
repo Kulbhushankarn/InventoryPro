@@ -18,9 +18,14 @@
     <div class="card shadow">
         <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
             <span>Inventory List</span>
-            <a href="@Url.Action("Create", "Inventory")" class="btn btn-light btn-sm">
-                <i class="bi bi-plus-circle"></i> Add New Item
-            </a>
+            <div>
+                <a href="@Url.Action("Create", "Inventory")" class="btn btn-light btn-sm">
+                    <i class="bi bi-plus-circle"></i> Add New Item
+                </a>
+                <a href="@Url.Action("ExportToExcel", "Inventory")" class="btn btn-success btn-sm">
+                    <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                </a>
+            </div>
         </div>
 
         <div class="card-body">
@@ -135,3 +140,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-image: linear-gradient(to bottom right, #d16ba5, #86a8e7, #5ffbf1);
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+    }
+</style>

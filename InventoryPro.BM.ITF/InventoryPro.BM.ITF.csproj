@@ -44,6 +44,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="IclsInventoryBM.cs" />
     <Compile Include="IclsPurchaseOrderBM.cs" />
+    <Compile Include="IclsSalesRecordBM.cs" />
     <Compile Include="IclsUserBM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
